@@ -526,10 +526,11 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
             if (FlutterBarcodeScannerPlugin.isContinuousScan) {
                 FlutterBarcodeScannerPlugin.onBarcodeScanReceiver(barcode);
             } else {
-                Intent data = new Intent();
-                data.putExtra(BarcodeObject, barcode);
-                setResult(CommonStatusCodes.SUCCESS, data);
-                finish();
+                Log.w(TAG, "barcode a:" + barcode.toString())
+//                Intent data = new Intent();
+//                data.putExtra(BarcodeObject, barcode);
+//                setResult(CommonStatusCodes.SUCCESS, data);
+//                finish();
             }
         }
     }
