@@ -527,7 +527,6 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
                 FlutterBarcodeScannerPlugin.onBarcodeScanReceiver(barcode);
             } else {
                 String bs = barcode.rawValue;
-                Log.w("ololo", "barcode a:" + bs);
                 if(bs.length() == 15 || bs.length() == 16) {
                     if(bs.length() == 15 && isValidImei(bs)) {
                         Intent data = new Intent();
