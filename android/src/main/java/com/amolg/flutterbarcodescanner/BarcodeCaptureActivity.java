@@ -528,13 +528,13 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
             } else {
                 String bs = barcode.toString();
                 Log.w(TAG, "barcode a:" + bs);
-                if(bs.length == 15 || bs.length == 16) {
-                    if(bs.length == 15 && isValidImei(bs)) {
+                if(bs.length() == 15 || bs.length() == 16) {
+                    if(bs.length() == 15 && isValidImei(bs)) {
                         Intent data = new Intent();
                         data.putExtra(BarcodeObject, barcode);
                         setResult(CommonStatusCodes.SUCCESS, data);
                         finish();
-                    } else if(bs.length == 16) {
+                    } else if(bs.length() == 16) {
                         Intent data = new Intent();
                         data.putExtra(BarcodeObject, barcode);
                         setResult(CommonStatusCodes.SUCCESS, data);
