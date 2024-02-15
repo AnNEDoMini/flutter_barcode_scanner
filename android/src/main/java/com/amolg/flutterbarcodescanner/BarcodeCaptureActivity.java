@@ -526,12 +526,53 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
             if (FlutterBarcodeScannerPlugin.isContinuousScan) {
                 FlutterBarcodeScannerPlugin.onBarcodeScanReceiver(barcode);
             } else {
-                Log.w(TAG, "barcode a:" + barcode.toString())
-//                Intent data = new Intent();
-//                data.putExtra(BarcodeObject, barcode);
-//                setResult(CommonStatusCodes.SUCCESS, data);
-//                finish();
+                String bs = barcode.toString();
+                Log.w(TAG, "barcode a:" + bs);
+                if(bs.length == 15 || bs.length == 16) {
+                    if(bs.length == 15 && isValidImei(bs)) {
+                        Intent data = new Intent();
+                        data.putExtra(BarcodeObject, barcode);
+                        setResult(CommonStatusCodes.SUCCESS, data);
+                        finish();
+                    } else if(bs.length == 16) {
+                        Intent data = new Intent();
+                        data.putExtra(BarcodeObject, barcode);
+                        setResult(CommonStatusCodes.SUCCESS, data);
+                        finish();
+                    }
+                }
             }
         }
+    }
+
+    int sumDig(int n) {
+        int a = 0;
+        while(n > 0) {
+            a = a + n % 10;
+            n = n / 10;
+        }
+        return a;
+    }
+
+    public boolean isValidImei(String s) {
+        long n = Long.parseLong(s);
+        int l = s.length();
+
+        int d = 0, sum = 0;
+        for(int i=15; i>=1; i--) {
+            d = (int)(n % 10);
+
+            if(i % 2 == 0) {
+                d = 2 * d; // Doubling every alternate digit
+            }
+            sum = sum + sumDig(d); // Finding sum of the digits
+
+            n = n/10;
+        }
+
+        if(sum % 10 == 0 && sum != 0) {
+            return true;
+        }
+        return false;
     }
 }
